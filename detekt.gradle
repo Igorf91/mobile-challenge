@@ -1,0 +1,15 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    toolVersion = "1.0.0-RC10"
+    input = files("src/main/kotlin")
+    filters = ".*/resources/.*,.*/build/.*"
+    config = files("$rootDir/default-detekt-config.yml")
+
+    reports {
+        html {
+            enabled = true
+            destination = file("$rootDir/reports/detekt-report.html")
+        }
+    }
+}
