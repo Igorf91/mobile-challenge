@@ -5,4 +5,5 @@
     <string name="result_value">Valor convertido</string>
     <string name="initial_current">Moeda inicial</string>
     <string name="destiny_current">Moeda conversão</string>
+    <string name="search_currency">Buscar moeda</string>
 </resources>

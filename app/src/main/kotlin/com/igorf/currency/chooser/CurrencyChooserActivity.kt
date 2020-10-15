@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.igorf.currency.R
 import com.igorf.currency.adapter.CurrencyChooserAdapter
 import kotlinx.android.synthetic.main.activity_currency_chooser.currencyChooserList
+import kotlinx.android.synthetic.main.activity_currency_chooser.searchEditText
 
 class CurrencyChooserActivity : AppCompatActivity(R.layout.activity_currency_chooser) {
 
@@ -44,6 +45,8 @@ class CurrencyChooserActivity : AppCompatActivity(R.layout.activity_currency_cho
                 adapter.updateList(it)
             }
         )
+
+        searchEditText.addTextChangedListener(currencyChooserViewModel.listenerSearch())
     }
 
     private fun fetchData() {

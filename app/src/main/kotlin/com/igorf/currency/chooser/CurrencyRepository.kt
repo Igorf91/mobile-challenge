@@ -15,14 +15,18 @@ class CurrencyRepository {
 
     private val _currencies = MutableLiveData<Map<String, String>>()
     val currencies: LiveData<Map<String, String>> = _currencies
+    private val currenciesCache = mutableMapOf<String, String>()
 
     fun fetchCurrencyList() {
         api.getCurrenciesList().enqueue(
             callback { response, throwable ->
                 response?.let {
                     response.body()?.let {
-                        if (it.success)
+                        if (it.success) {
+                            currenciesCache.clear()
+                            currenciesCache.putAll(it.currencies)
                             _currencies.postValue(it.currencies)
+                        }
                         else
                             Log.e("currencyList", "success == false")
                     }
@@ -31,6 +35,15 @@ class CurrencyRepository {
                 throwable?.let {
                     Log.e("currencyList", it.message ?: "EMPTY RESPONSE")
                 }
+            }
+        )
+    }
+
+    fun filter(value: String) {
+        _currencies.postValue(
+            currenciesCache.filter {
+                it.key.contains(value, true) ||
+                        it.value.contains(value, true)
             }
         )
     }
